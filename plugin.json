@@ -1,0 +1,62 @@
+{
+  "type": "datasource",
+  "name": "GrafanaConnect",
+  "id": "grafana-connect",
+  "metrics": true,
+  "logs": true,
+  "annotations": true,
+  "backend": true,
+  "executable": "gpx_grafana-connect",
+  "info": {
+    "description": "Unified data source plugin for Prometheus metrics, Loki logs, and REST APIs",
+    "author": {
+      "name": "Sameer Sah"
+    },
+    "keywords": [
+      "prometheus",
+      "loki",
+      "rest",
+      "api",
+      "metrics",
+      "logs"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/Sameersah/GrafanaConnect"
+      }
+    ],
+    "screenshots": [],
+    "version": "1.0.0",
+    "updated": "2025-01-27"
+  },
+  "dependencies": {
+    "grafanaVersion": "9.0.0",
+    "plugins": []
+  },
+  "routes": [
+    {
+      "path": "prometheus",
+      "method": "*",
+      "url": "{{.JsonData.prometheusUrl}}",
+      "headers": []
+    },
+    {
+      "path": "loki",
+      "method": "*",
+      "url": "{{.JsonData.lokiUrl}}",
+      "headers": []
+    },
+    {
+      "path": "rest",
+      "method": "*",
+      "url": "{{.JsonData.restUrl}}",
+      "headers": []
+    }
+  ]
+}
+
