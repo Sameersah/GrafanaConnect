@@ -36,7 +36,7 @@ export class QueryEditor extends PureComponent<Props, State> {
     const { onChange, query } = this.props;
     onChange({
       ...query,
-      promQL: event.target.value,
+      promQL: (event.target as HTMLInputElement).value,
     });
   };
 
@@ -44,7 +44,7 @@ export class QueryEditor extends PureComponent<Props, State> {
     const { onChange, query } = this.props;
     onChange({
       ...query,
-      logQL: event.target.value,
+      logQL: (event.target as HTMLInputElement).value,
     });
   };
 
@@ -52,7 +52,7 @@ export class QueryEditor extends PureComponent<Props, State> {
     const { onChange, query } = this.props;
     onChange({
       ...query,
-      restEndpoint: event.target.value,
+      restEndpoint: (event.target as HTMLInputElement).value,
     });
   };
 
@@ -68,7 +68,7 @@ export class QueryEditor extends PureComponent<Props, State> {
     const { onChange, query } = this.props;
     onChange({
       ...query,
-      restBody: event.target.value,
+      restBody: (event.target as HTMLTextAreaElement).value,
     });
   };
 
@@ -82,7 +82,7 @@ export class QueryEditor extends PureComponent<Props, State> {
           inputWidth={20}
           onChange={this.onPromQLChange}
           value={query.promQL || ''}
-          placeholder="up{job=\"prometheus\"}"
+          placeholder='up{job="prometheus"}'
           tooltip="Enter a PromQL query expression"
         />
       </div>
@@ -99,7 +99,7 @@ export class QueryEditor extends PureComponent<Props, State> {
           inputWidth={20}
           onChange={this.onLogQLChange}
           value={query.logQL || ''}
-          placeholder="{job=\"varlogs\"}"
+          placeholder='{job="varlogs"}'
           tooltip="Enter a LogQL query expression"
         />
       </div>
@@ -122,14 +122,12 @@ export class QueryEditor extends PureComponent<Props, State> {
           />
         </div>
         <div className="gf-form">
+          <label className="gf-form-label width-10">HTTP Method</label>
           <Select
-            label="HTTP Method"
-            labelWidth={10}
             width={20}
             options={httpMethodOptions}
             value={httpMethodOptions.find((o) => o.value === (query.restMethod || 'GET'))}
             onChange={this.onRESTMethodChange}
-            tooltip="HTTP method for the request"
           />
         </div>
         {(query.restMethod === 'POST' || query.restMethod === 'PUT' || query.restMethod === 'PATCH') && (
@@ -155,14 +153,12 @@ export class QueryEditor extends PureComponent<Props, State> {
     return (
       <div className="gf-form-group">
         <div className="gf-form">
+          <label className="gf-form-label width-10">Query Type</label>
           <Select
-            label="Query Type"
-            labelWidth={10}
             width={20}
             options={queryTypeOptions}
             value={queryTypeOptions.find((o) => o.value === queryType)}
             onChange={this.onQueryTypeChange}
-            tooltip="Select the type of data source to query"
           />
         </div>
 

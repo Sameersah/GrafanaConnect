@@ -89,7 +89,7 @@ export class DataSource extends DataSourceApi<GrafanaConnectQuery, GrafanaConnec
   }
 
   async testDatasource() {
-    const options = this.instanceSettings.jsonData;
+    const options = (this as any).instanceSettings.jsonData;
     
     // Check if at least one URL is configured
     if (!options.prometheusUrl && !options.lokiUrl && !options.restUrl) {
@@ -118,11 +118,11 @@ export class DataSource extends DataSourceApi<GrafanaConnectQuery, GrafanaConnec
     }
   }
 
-  getRef(): GrafanaConnectDataSourceOptions {
+  getRef() {
     return {
-      uid: this.instanceSettings.uid,
-      type: this.instanceSettings.type,
-    } as any;
+      uid: (this as any).instanceSettings.uid,
+      type: (this as any).instanceSettings.type,
+    };
   }
 }
 

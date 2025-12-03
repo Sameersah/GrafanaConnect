@@ -14,7 +14,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
     const { onOptionsChange, options } = this.props;
     const jsonData = {
       ...options.jsonData,
-      prometheusUrl: event.target.value,
+      prometheusUrl: (event.target as HTMLInputElement).value,
     };
     onOptionsChange({ ...options, jsonData });
   };
@@ -23,7 +23,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
     const { onOptionsChange, options } = this.props;
     const jsonData = {
       ...options.jsonData,
-      lokiUrl: event.target.value,
+      lokiUrl: (event.target as HTMLInputElement).value,
     };
     onOptionsChange({ ...options, jsonData });
   };
@@ -32,7 +32,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
     const { onOptionsChange, options } = this.props;
     const jsonData = {
       ...options.jsonData,
-      restUrl: event.target.value,
+      restUrl: (event.target as HTMLInputElement).value,
     };
     onOptionsChange({ ...options, jsonData });
   };
@@ -41,7 +41,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
     const { onOptionsChange, options } = this.props;
     const jsonData = {
       ...options.jsonData,
-      apiKey: event.target.value,
+      apiKey: (event.target as HTMLInputElement).value,
     };
     onOptionsChange({ ...options, jsonData });
   };
@@ -52,7 +52,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
       ...options,
       secureJsonData: {
         ...options.secureJsonData,
-        apiKey: event.target.value,
+        apiKey: (event.target as HTMLInputElement).value,
       },
     });
   };
@@ -76,7 +76,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
     const { onOptionsChange, options } = this.props;
     const jsonData = {
       ...options.jsonData,
-      basicAuthUser: event.target.value,
+      basicAuthUser: (event.target as HTMLInputElement).value,
     };
     onOptionsChange({ ...options, jsonData });
   };
@@ -87,7 +87,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
       ...options,
       secureJsonData: {
         ...options.secureJsonData,
-        basicAuthPass: event.target.value,
+        basicAuthPass: (event.target as HTMLInputElement).value,
       },
     });
   };
@@ -111,7 +111,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
     const { onOptionsChange, options } = this.props;
     const jsonData = {
       ...options.jsonData,
-      bearerToken: event.target.value,
+      bearerToken: (event.target as HTMLInputElement).value,
     };
     onOptionsChange({ ...options, jsonData });
   };
@@ -122,7 +122,7 @@ export class ConfigEditor extends PureComponent<Props, State> {
       ...options,
       secureJsonData: {
         ...options.secureJsonData,
-        bearerToken: event.target.value,
+        bearerToken: (event.target as HTMLInputElement).value,
       },
     });
   };
