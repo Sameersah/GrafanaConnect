@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -377,11 +378,19 @@ func (d *Datasource) handleRESTResource(ctx context.Context, req *backend.CallRe
 	path := strings.TrimPrefix(req.Path, "/")
 	targetURL := baseURL + "/" + path
 
-	if len(req.URL.RawQuery) > 0 {
-		targetURL += "?" + req.URL.RawQuery
+	if len(req.URL) > 0 && req.URL != req.Path {
+		// Parse URL to extract query string if present
+		if parsedURL, err := url.Parse(req.URL); err == nil && parsedURL.RawQuery != "" {
+			targetURL += "?" + parsedURL.RawQuery
+		}
 	}
 
-	proxyReq, err := http.NewRequestWithContext(ctx, req.Method, targetURL, req.Body)
+	var bodyReader io.Reader
+	if len(req.Body) > 0 {
+		bodyReader = bytes.NewReader(req.Body)
+	}
+
+	proxyReq, err := http.NewRequestWithContext(ctx, req.Method, targetURL, bodyReader)
 	if err != nil {
 		return sender.Send(&backend.CallResourceResponse{
 			Status: 500,

@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -264,11 +265,19 @@ func (d *Datasource) handlePrometheusResource(ctx context.Context, req *backend.
 	
 	// Build URL
 	targetURL := d.config.PrometheusURL + req.Path
-	if len(req.URL.RawQuery) > 0 {
-		targetURL += "?" + req.URL.RawQuery
+	if len(req.URL) > 0 && req.URL != req.Path {
+		// Parse URL to extract query string if present
+		if parsedURL, err := url.Parse(req.URL); err == nil && parsedURL.RawQuery != "" {
+			targetURL += "?" + parsedURL.RawQuery
+		}
 	}
 
-	proxyReq, err := http.NewRequestWithContext(ctx, req.Method, targetURL, req.Body)
+	var bodyReader io.Reader
+	if len(req.Body) > 0 {
+		bodyReader = bytes.NewReader(req.Body)
+	}
+
+	proxyReq, err := http.NewRequestWithContext(ctx, req.Method, targetURL, bodyReader)
 	if err != nil {
 		return sender.Send(&backend.CallResourceResponse{
 			Status: 500,

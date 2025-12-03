@@ -9,7 +9,6 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
-	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
 // Make sure Datasource implements required interfaces
@@ -111,13 +110,13 @@ func (d *Datasource) CheckHealth(ctx context.Context, req *backend.CheckHealthRe
 		status = backend.HealthStatusError
 		message = "No data source URLs configured. Please configure at least one data source."
 	} else {
-		status = backend.HealthStatusOK
+		status = backend.HealthStatusOk
 		message = "Data source is ready"
 		
 		// Try to verify connectivity
 		if d.config.PrometheusURL != "" {
 			if err := d.checkPrometheusHealth(ctx); err != nil {
-				status = backend.HealthStatusWarning
+				status = backend.HealthStatusError
 				message = fmt.Sprintf("Prometheus connection issue: %v", err)
 			}
 		}
